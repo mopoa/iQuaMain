@@ -7,9 +7,19 @@
 
 package org.iquantum.examples.quantum;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Random;
 
 import org.iquantum.backends.quantum.IBMQNodeMQ;
 import org.iquantum.backends.quantum.QNodeMQ;
+import org.iquantum.backends.quantum.qubittopologies.GraphicalTopoRepr;
 import org.iquantum.brokers.QBrokerMQ;
 import org.iquantum.core.iQuantum;
 import org.iquantum.datacenters.QDatacenterCharacteristicsExtended;
@@ -18,12 +28,6 @@ import org.iquantum.policies.qtasks.QTaskSchedulerFCFSMQ;
 import org.iquantum.tasks.QTask;
 import org.iquantum.utils.Log;
 import org.iquantum.utils.QTaskImporter;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.text.DecimalFormat;
-import java.util.*;
 
 public class iQuantumExample8 {
     private static List<QTask> QTaskList;
@@ -80,6 +84,8 @@ public class iQuantumExample8 {
                 QTask.setQNodeId(qNodeList.get(random.nextInt(qNodeList.size())).getId());
                 QTaskList.add(QTask);
             }
+            GraphicalTopoRepr.repr(QTaskList.get(2).getQubitTopology());
+            // new GraphicalTopoRepr(qNodeList.get(0).getQPUList().getQubitTopologyOfQPUById(0));
         } catch (IOException e) {
             System.err.println("Error reading CSV file: " + e.getMessage());
         }
